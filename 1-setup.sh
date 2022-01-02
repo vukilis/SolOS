@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 #-------------------------------------------------------------------------
-#   █████╗ ██████╗  ██████╗██╗  ██╗████████╗██╗████████╗██╗   ██╗███████╗
-#  ██╔══██╗██╔══██╗██╔════╝██║  ██║╚══██╔══╝██║╚══██╔══╝██║   ██║██╔════╝
-#  ███████║██████╔╝██║     ███████║   ██║   ██║   ██║   ██║   ██║███████╗
-#  ██╔══██║██╔══██╗██║     ██╔══██║   ██║   ██║   ██║   ██║   ██║╚════██║
-#  ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
-#  ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
+#  .d8888b.           888  .d88888b.   .d8888b.  
+# d88P  Y88b          888 d88P" "Y88b d88P  Y88b 
+# Y88b.               888 888     888 Y88b.      
+#  "Y888b.    .d88b.  888 888     888  "Y888b.   
+#     "Y88b. d88""88b 888 888     888     "Y88b. 
+#       "888 888  888 888 888     888       "888 
+# Y88b  d88P Y88..88P 888 Y88b. .d88P Y88b  d88P 
+#  "Y8888P"   "Y88P"  888  "Y88888P"   "Y8888P"  
 #-------------------------------------------------------------------------
 echo "--------------------------------------"
 echo "--          Network Setup           --"
@@ -33,10 +35,12 @@ echo "-------------------------------------------------"
 echo "       Setup Language to US and set locale       "
 echo "-------------------------------------------------"
 sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+sed -i 's/^#sr_RS UTF-8/sr_RS UTF-8/' /etc/locale.gen
+sed -i 's/^#sr_RS@latin UTF-8/sr_RS@latin UTF-8/' /etc/locale.gen
 locale-gen
-timedatectl --no-ask-password set-timezone America/Chicago
+timedatectl --no-ask-password set-timezone Europe/Belgrade
 timedatectl --no-ask-password set-ntp 1
-localectl --no-ask-password set-locale LANG="en_US.UTF-8" LC_TIME="en_US.UTF-8"
+localectl --no-ask-password set-locale LANG="en_US.UTF-8" LC_TIME="en_GB.UTF-8" LC_PAPER="en_GB.UTF-8" LC_MEASUREMENT="en_GB.UTF-8"
 
 # Set keymaps
 localectl --no-ask-password set-keymap us
@@ -86,48 +90,47 @@ PKGS=(
 'cmatrix'
 'code' # Visual Studio code
 'cronie'
-'cups'
+#'cups' # printing
 'dialog'
 'discover'
-'dolphin'
+'dolphin'   # file manager
 'dosfstools'
 'dtc'
 'efibootmgr' # EFI boot
 'egl-wayland'
 'exfat-utils'
 'extra-cmake-modules'
-'filelight'
-'flex'
+#'filelight' # visualize the disk usage
+'flex' # fast lexical analyzer generator
 'fuse2'
 'fuse3'
 'fuseiso'
 'gamemode'
 'gcc'
-'gimp' # Photo editing
+#'gimp' # Photo editing
 'git'
 'gparted' # partition management
 'gptfdisk'
 'grub'
 'grub-customizer'
-'gst-libav'
+'gst-libav' # popular decoders and encoders
 'gst-plugins-good'
 'gst-plugins-ugly'
-'gwenview'
+'gwenview' # image viewer
 'haveged'
-'htop'
-'iptables-nft'
+'htop' # monitor system’s resources
+'iptables-nft' # hybrid Linux firewall - Red Hat
 'jdk-openjdk' # Java 17
-'kate'
-'kcodecs'
+'kate' # text editor
+'kcodecs' # media codecs
 'kcoreaddons'
 'kdeplasma-addons'
 'kde-gtk-config'
 'kinfocenter'
 'kscreen'
 'kvantum-qt5'
-'kitty'
+#'kitty' # terminal
 'konsole'
-'kscreen'
 'layer-shell-qt'
 'libdvdcss'
 'libnewt'
@@ -173,7 +176,7 @@ PKGS=(
 'sddm'
 'sddm-kcm'
 'snapper'
-'spectacle'
+'spectacle'  # screenshot manager
 'steam'
 'sudo'
 'swtpm'
@@ -197,9 +200,10 @@ PKGS=(
 'xdg-user-dirs'
 'zeroconf-ioslave'
 'zip'
-'zsh'
-'zsh-syntax-highlighting'
-'zsh-autosuggestions'
+'mlocate'
+#'zsh'
+#'zsh-syntax-highlighting'
+#'zsh-autosuggestions'
 )
 
 for PKG in "${PKGS[@]}"; do
@@ -241,14 +245,14 @@ if ! source install.conf; then
 # Make username lowercase
 username=${username,,}
 
-echo "username=$username" >> ${HOME}/ArchTitus/install.conf
+echo "username=$username" >> ${HOME}/SolOS/install.conf
 fi
 if [ $(whoami) = "root"  ];
 then
     useradd -m -G wheel,libvirt -s /bin/bash $username 
 	passwd $username
-	cp -R /root/ArchTitus /home/$username/
-    chown -R $username: /home/$username/ArchTitus
+	cp -R /root/SolOS /home/$username/
+    chown -R $username: /home/$username/SolOS
 	read -p "Please name your machine:" nameofmachine
 	echo $nameofmachine > /etc/hostname
 else

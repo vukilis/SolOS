@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 #-------------------------------------------------------------------------
-#   █████╗ ██████╗  ██████╗██╗  ██╗████████╗██╗████████╗██╗   ██╗███████╗
-#  ██╔══██╗██╔══██╗██╔════╝██║  ██║╚══██╔══╝██║╚══██╔══╝██║   ██║██╔════╝
-#  ███████║██████╔╝██║     ███████║   ██║   ██║   ██║   ██║   ██║███████╗
-#  ██╔══██║██╔══██╗██║     ██╔══██║   ██║   ██║   ██║   ██║   ██║╚════██║
-#  ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
-#  ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
+#  .d8888b.           888  .d88888b.   .d8888b.  
+# d88P  Y88b          888 d88P" "Y88b d88P  Y88b 
+# Y88b.               888 888     888 Y88b.      
+#  "Y888b.    .d88b.  888 888     888  "Y888b.   
+#     "Y88b. d88""88b 888 888     888     "Y88b. 
+#       "888 888  888 888 888     888       "888 
+# Y88b  d88P Y88..88P 888 Y88b. .d88P Y88b  d88P 
+#  "Y8888P"   "Y88P"  888  "Y88888P"   "Y8888P" 
 #-------------------------------------------------------------------------
 
 echo -e "\nINSTALLING AUR SOFTWARE\n"
@@ -17,17 +19,17 @@ git clone "https://aur.archlinux.org/yay.git"
 cd ${HOME}/yay
 makepkg -si --noconfirm
 cd ~
-touch "$HOME/.cache/zshhistory"
-git clone "https://github.com/ChrisTitusTech/zsh"
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/powerlevel10k
-ln -s "$HOME/zsh/.zshrc" $HOME/.zshrc
+git clone "https://github.com/vukilis/ZSH_terminal.git"
+cd ${HOME}/ZSH_terminal
+bash arch-setup.sh
+cd ~
 
 PKGS=(
-'autojump'
+#'autojump'
 'awesome-terminal-fonts'
 'brave-bin' # Brave Browser
 'dxvk-bin' # DXVK DirectX to Vulcan
-'github-desktop-bin' # Github Desktop sync
+#'github-desktop-bin' # Github Desktop sync
 'lightly-git'
 'lightlyshaders-git'
 'mangohud' # Gaming FPS Counter
@@ -47,7 +49,7 @@ PKGS=(
 'ttf-hack'
 'ttf-meslo' # Nerdfont package
 'ttf-roboto'
-'zoom' # video conferences
+#'zoom' # video conferences
 'snap-pac'
 )
 
@@ -56,9 +58,9 @@ for PKG in "${PKGS[@]}"; do
 done
 
 export PATH=$PATH:~/.local/bin
-cp -r $HOME/ArchTitus/dotfiles/* $HOME/.config/
+cp -r $HOME/SolOS/dotfiles/* $HOME/.config/
 pip install konsave
-konsave -i $HOME/ArchTitus/kde.knsv
+konsave -i $HOME/SolOS/kde.knsv
 sleep 1
 konsave -a kde
 

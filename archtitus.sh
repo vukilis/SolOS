@@ -1,7 +1,11 @@
 #!/bin/bash
 
-    bash 0-preinstall.sh
-    arch-chroot /mnt /root/ArchTitus/1-setup.sh
-    source /mnt/root/ArchTitus/install.conf
-    arch-chroot /mnt /usr/bin/runuser -u $username -- /home/$username/ArchTitus/2-user.sh
-    arch-chroot /mnt /root/ArchTitus/3-post-setup.sh
+echo "--------------------------------------"
+echo "------ SolOS installation begun ------"
+echo "--------------------------------------" && sleep 1
+
+bash 0-preinstall.sh
+arch-chroot /mnt /root/SolOS/1-setup.sh
+source /mnt/root/SolOS/install.conf
+arch-chroot /mnt /usr/bin/runuser -u $username -- /home/$username/SolOS/2-user.sh
+arch-chroot /mnt /root/SolOS/3-post-setup.sh
