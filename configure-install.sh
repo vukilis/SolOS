@@ -43,20 +43,18 @@ userinfo(){
 }
 
 diskpart () {
-    if ! source setup.conf; then
-        echo -ne "
-            ------------------------------------------------
-            ----------select your disk to format------------
-            THIS WILL FORMAT AND DELETE ALL DATA ON THE DISK
-            ------------------------------------------------
-        "
-        lsblk
-        read -p "Please enter disk to work on: (example /dev/sda)": DISK
-        echo "DISK=$DISK" >> setup.conf
-    fi
+    echo -ne "
+        ------------------------------------------------
+        ----------select your disk to format------------
+        THIS WILL FORMAT AND DELETE ALL DATA ON THE DISK
+        ------------------------------------------------
+    "
+    lsblk
+    read -p "Please enter disk to work on: (example /dev/sda)": DISK
+    echo "DISK=$DISK" >> setup.conf
 }
 
-
+rm -rf setup.conf &>/dev/null
 #Call functions
 logo
 userinfo
