@@ -44,16 +44,34 @@ userinfo(){
 
 diskpart () {
     echo -ne "
-        ------------------------------------------------
-        ----------select your disk to format------------
-        THIS WILL FORMAT AND DELETE ALL DATA ON THE DISK
-        ------------------------------------------------
+    ------------------------------------------------
+    ----------select your disk to format------------
+    THIS WILL FORMAT AND DELETE ALL DATA ON THE DISK
+    ------------------------------------------------
     "
     lsblk
     read -p "Please enter disk to work on: (example /dev/sda)": DISK
     echo "DISK=$DISK" >> setup.conf
 }
 
+filesystem () {
+    # Make filesystems, btrfs and ext4.
+    echo -ne "
+        Please Select your file system for both boot and root
+        1)      btrfs
+        2)      ext4
+        0)      exit
+    "
+    read FS
+    case $FS in
+    1) echo "FS=btrfs" >> setup.conf;;
+    2) echo "FS=ext4" >> setup.conf;;
+    0) exit ;;
+    *) echo "Please choose correct option"; filesystem;;
+    esac
+}
+
+#remove setup.conf file
 rm -rf setup.conf &>/dev/null
 #Call functions
 logo
@@ -64,4 +82,6 @@ logo
 diskpart
 clear
 
-
+logo
+filesystem
+clear
