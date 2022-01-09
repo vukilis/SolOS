@@ -30,15 +30,6 @@ logo(){
 }
 
 userinfo(){
-    # echo -ne "Please enter username: "
-    # read username
-    # echo "username=$username" >> ${HOME}/SolOS/setup.conf
-    # echo -ne "Please enter your password: "
-    # read password
-    # echo "password=$password" >> ${HOME}/SolOS/setup.conf
-    # echo -ne "Please enter your hostname: "
-    # read hostname
-    # echo "hostname=$hostname" >> ${HOME}/SolOS/setup.conf
     if ! source setup.conf; then
         read -p "Please enter username:" username
         read -p "Please enter your password:" password
@@ -48,15 +39,31 @@ userinfo(){
     username=${username,,}
 
     echo "username=$username" >> ${HOME}/SolOS/setup.conf
-    echo "username=$password" >> ${HOME}/SolOS/setup.conf
-    echo "username=$hostname" >> ${HOME}/SolOS/setup.conf
+    echo "password=$password" >> ${HOME}/SolOS/setup.conf
+    echo "hostname=$hostname" >> ${HOME}/SolOS/setup.conf
     fi
 }
 
+diskpart () {
+    echo -ne "
+        ------------------------------------------------
+        ----------select your disk to format------------
+        THIS WILL FORMAT AND DELETE ALL DATA ON THE DISK
+        ------------------------------------------------
+    "
+    lsblk
+    read -p "Please enter disk to work on: (example /dev/sda)": DISK
+    echo "DISK=$option" >> setup.conf
+}
+
+
+#Call functions
+logo
 userinfo
 clear
 
-
-
+logo
+diskpart
+clear
 
 
