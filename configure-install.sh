@@ -15,23 +15,23 @@ logo(){
 
     echo -ne "
 -------------------------------------------------------------------------
-   _____           _    ____     _____ 
-  / ____|         | |  / __ \   / ____|
- | (___     ___   | | | |  | | | (___  
-  \___ \   / _ \  | | | |  | |  \___ \ 
-  ____) | | (_) | | | | |__| |  ____) |
- |_____/   \___/  |_|  \____/  |_____/ 
+                     _____           _    ____     _____ 
+                    / ____|         | |  / __ \   / ____|
+                   | (___     ___   | | | |  | | | (___  
+                    \___ \   / _ \  | | | |  | |  \___ \ 
+                    ____) | | (_) | | | | |__| |  ____) |
+                   |_____/   \___/  |_|  \____/  |_____/ 
 -------------------------------------------------------------------------
-       https://github.com/vukilis              
+                         https://github.com/vukilis              
 ------------------------------------------------------------------------
     "
 }
 
 userinfo(){
     if ! source setup.conf; then
-        read -p "Please enter username:" username
-        read -p "Please enter your password:" password
-        read -p "Please enter your hostname:" hostname
+        read -p "Please enter username: " username
+        read -p "Please enter your password: " password
+        read -p "Please enter your hostname: " hostname
 
     # Make username lowercase
     username=${username,,}
