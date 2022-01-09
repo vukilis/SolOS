@@ -33,25 +33,27 @@ userinfo(){
         read -p "Please enter your password: " password
         read -p "Please enter your hostname: " hostname
 
-    # Make username lowercase
-    username=${username,,}
+        # Make username lowercase
+        username=${username,,}
 
-    echo "username=$username" >> ${HOME}/SolOS/setup.conf
-    echo "password=$password" >> ${HOME}/SolOS/setup.conf
-    echo "hostname=$hostname" >> ${HOME}/SolOS/setup.conf
+        echo "username=$username" >> ${HOME}/SolOS/setup.conf
+        echo "password=$password" >> ${HOME}/SolOS/setup.conf
+        echo "hostname=$hostname" >> ${HOME}/SolOS/setup.conf
     fi
 }
 
 diskpart () {
-    echo -ne "
-        ------------------------------------------------
-        ----------select your disk to format------------
-        THIS WILL FORMAT AND DELETE ALL DATA ON THE DISK
-        ------------------------------------------------
-    "
-    lsblk
-    read -p "Please enter disk to work on: (example /dev/sda)": DISK
-    echo "DISK=$DISK" >> setup.conf
+    if ! source setup.conf; then
+        echo -ne "
+            ------------------------------------------------
+            ----------select your disk to format------------
+            THIS WILL FORMAT AND DELETE ALL DATA ON THE DISK
+            ------------------------------------------------
+        "
+        lsblk
+        read -p "Please enter disk to work on: (example /dev/sda)": DISK
+        echo "DISK=$DISK" >> setup.conf
+    fi
 }
 
 
